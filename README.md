@@ -17,6 +17,12 @@ This is a java application that allows individuals in different departments to p
     CREATE TABLE users(id SERIAL PRIMARY KEY, name varchar, postion varchar, role varchar);
     CREATE TABLE news(id SERIAL PRIMARY KEY, heading varchar , content varchar);
   
+## Screenshots
+
+[Home](src/1.png)<br>
+[Departments](src/2.png)<br>
+[News](src/3.png)<br>
+[Users](src/4.png)<br>
 
 ## Live link
 
