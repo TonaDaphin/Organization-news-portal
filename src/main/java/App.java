@@ -23,7 +23,7 @@ public class App {
         SqlUsersDao usersDao;
         Connection conn;
         String connectionString = "jdbc:postgresql://localhost:5432/organize";
-        Sql2o sql2o = new Sql2o(connectionString, "tona", "1990");
+        Sql2o sql2o = new Sql2o(connectionString, "wecode", "2000");
 
         usersDao=new SqlUsersDao(sql2o);
         departmentsDao= new SqlDepartmentsDao(sql2o);
@@ -57,13 +57,13 @@ public class App {
 
 //        Departments
 
-        get("/department/new", (request, response) -> {
+        get("/departments/new", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("allDepartments",departmentsDao.getAll());
-            return new ModelAndView(model, "department-form.hbs");
+            return new ModelAndView(model, "departments.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/department", (request, response) -> {
+        post("/departments", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String departName = request.queryParams("departName");
             String departDescription = request.queryParams("departDescription");
@@ -74,7 +74,7 @@ public class App {
             model.put("departName",departName);
             model.put("departDescription",departDescription);
             model.put("employees",employees);
-            return new ModelAndView(model, "dep-success.hbs");
+            return new ModelAndView(model, "departments.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/departments",(request, response) -> {
@@ -96,20 +96,23 @@ public class App {
             String userPosition=request.queryParams("userPosition");
             String userRole = request.queryParams("userRole");
             int departId = Integer.parseInt(request.queryParams("departId"));
+            System.out.println(departId);
             Users newUser = new Users(userName, userPosition, userRole, departId);
+
+            System.out.println(newUser);
             usersDao.add(newUser);
             model.put("users", usersDao.getAll());
             model.put("userName",userName);
             model.put("userPosition",userPosition);
             model.put("userRole",userRole);
             model.put("departId",departId);
-            return new ModelAndView(model, "user-success.hbs");
+            return new ModelAndView(model, "users.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/users", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("users", usersDao.getAll());
-            return new ModelAndView(model, "user.hbs");
+            return new ModelAndView(model, "users.hbs");
         },new HandlebarsTemplateEngine());
 
 
@@ -119,7 +122,7 @@ public class App {
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("allNews",newsDao.getAll());
             model.put("departments", departmentsDao.getAll());
-            return new ModelAndView(model, "news-form.hbs");
+            return new ModelAndView(model, "news.hbs");
         },new HandlebarsTemplateEngine());
 
         post("/news", (request, response) -> {
@@ -130,10 +133,11 @@ public class App {
             News newNews = new News(heading,content, departId);
             newsDao.add(newNews);
             model.put("news", newsDao.getAll());
+
             model.put("heading",heading);
             model.put("content",content);
             model.put("departId",departId);
-            return new ModelAndView(model, "new-success.hbs");
+            return new ModelAndView(model, "news.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/news", (request, response) -> {
@@ -205,7 +209,7 @@ public class App {
             Users editUser=usersDao.findById(idOfUserToEdit);
             model.put("editUser",editUser);
             model.put("editUser",true);
-            return new ModelAndView(model, "user-form.hbs");
+            return new ModelAndView(model, "users.hbs");
         },new HandlebarsTemplateEngine());
 
         get("/users/:id/delete", (request, response) -> {

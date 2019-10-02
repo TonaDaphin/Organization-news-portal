@@ -6,7 +6,7 @@ public class Users {
     private String userName;
     private String userPosition;
     private String userRole;
-//    private int departId;
+    private int departId;
     private int id;
 
 
@@ -14,7 +14,7 @@ public class Users {
         this.userName=userName;
         this.userPosition=userPosition;
         this.userRole=userRole;
-//        this.departId=departId;
+        this.departId=departId;
     }
 
     public String getUserName(){
@@ -58,7 +58,7 @@ public class Users {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName,userPosition,userRole,id);
+        return Objects.hash(userName,userPosition,userRole,id,departId);
     }
 }
 
