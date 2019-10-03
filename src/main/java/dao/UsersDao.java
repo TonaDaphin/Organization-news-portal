@@ -27,5 +27,5 @@ public interface UsersDao {
     void clearAll();
 
 //void addUsersToDepartment(Users users, Departments department);
-List<Departments> getAllDepartmentsForUsers(int id);
+//List<Departments> getAllDepartmentsForUsers(int id);
 }

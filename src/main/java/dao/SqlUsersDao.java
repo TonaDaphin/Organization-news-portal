@@ -13,13 +13,15 @@ public class SqlUsersDao implements UsersDao {
     private final Sql2o sql2o;
 
     public SqlUsersDao(Sql2o sql2o) {
+
         this.sql2o = sql2o;
+        int id;
     }
 
     @Override
     public void add(Users users) {
 
-        String data="INSERT INTO users (userName, userPosition, userRole, departId) VALUES (:userName,:userPosition, :userRole, :departId)";
+        String data="INSERT INTO users (userName, userPosition, userRole) VALUES (:userName,:userPosition, :userRole)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(data, true)
                     .bind(users)
@@ -55,27 +57,27 @@ public class SqlUsersDao implements UsersDao {
         }
     }
 
-    @Override
-    public List<Departments> getAllDepartmentsForUsers(int userId) {
-        List<Departments>departments=new ArrayList<>();
-        String joinCode="SELECT departmentId FROM users_in_department WHERE userId=:userId";
-
-        try (Connection con = sql2o.open()) {
-            List<Integer> allDepartmentIds = con.createQuery(joinCode)
-                    .addParameter("userId", userId)
-                    .executeAndFetch(Integer.class);
-            for (Integer departId : allDepartmentIds){
-                String departmentQuery = "SELECT * FROM departments WHERE id = :departId";
-                departments.add(
-                        con.createQuery(departmentQuery)
-                                .addParameter("departId", departId)
-                                .executeAndFetchFirst(Departments.class));
-            }
-        } catch (Sql2oException ex){
-            System.out.println(ex);
-        }
-        return departments;
-    }
+//    @Override
+//    public List<Departments> getAllDepartmentsForUsers(int userId) {
+//        List<Departments>departments=new ArrayList<>();
+//        String joinCode="SELECT departmentId FROM users_in_department WHERE userId=:userId";
+//
+//        try (Connection con = sql2o.open()) {
+//            List<Integer> allDepartmentIds = con.createQuery(joinCode)
+//                    .addParameter("userId", userId)
+//                    .executeAndFetch(Integer.class);
+//            for (Integer departId : allDepartmentIds){
+//                String departmentQuery = "SELECT * FROM departments WHERE id = :departId";
+//                departments.add(
+//                        con.createQuery(departmentQuery)
+//                                .addParameter("departId", departId)
+//                                .executeAndFetchFirst(Departments.class));
+//            }
+//        } catch (Sql2oException ex){
+//            System.out.println(ex);
+//        }
+//        return departments;
+//    }
 
 
     @Override

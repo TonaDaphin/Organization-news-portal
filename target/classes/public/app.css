@@ -1,0 +1,19 @@
+body{
+ background-image: url("https://ak7.picdn.net/shutterstock/videos/10086887/thumb/1.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+
+}
+.questionnaire{
+ margin:20%;
+margin-top:0%
+}
+select{
+font-size:50px;
+}
+.card bg-dark text-white{
+color:black;
+}
+#st{
+ color:#3E3F3A;
+}

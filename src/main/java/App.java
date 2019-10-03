@@ -15,7 +15,15 @@ import static spark.Spark.*;
 import static spark.Spark.staticFileLocation;
 
 public class App {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
     public static void main(String[] args) {
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
         SqlNewsDao newsDao;
@@ -24,6 +32,8 @@ public class App {
         Connection conn;
         String connectionString = "jdbc:postgresql://localhost:5432/organize";
         Sql2o sql2o = new Sql2o(connectionString, "wecode", "2000");
+//        String connectionString = "jdbc:postgresql://ec2-174-129-43-40.compute-1.amazonaws.com:5432/dcr5bls6fd4u2f"; //!
+//        Sql2o sql2o = new Sql2o(connectionString, "enctmnuflzctte", "a4dca2e575578082a8d1456a1fd93ebf3e532f318b95dffec9a564350d31c7bapsql"); //!
 
         usersDao=new SqlUsersDao(sql2o);
         departmentsDao= new SqlDepartmentsDao(sql2o);
@@ -95,9 +105,8 @@ public class App {
             String userName = request.queryParams("userName");
             String userPosition=request.queryParams("userPosition");
             String userRole = request.queryParams("userRole");
-            int departId = Integer.parseInt(request.queryParams("departId"));
-            System.out.println(departId);
-            Users newUser = new Users(userName, userPosition, userRole, departId);
+//            int departId = Integer.parseInt(request.queryParams("departId"));
+            Users newUser = new Users(userName, userPosition, userRole);
 
             System.out.println(newUser);
             usersDao.add(newUser);
@@ -105,7 +114,7 @@ public class App {
             model.put("userName",userName);
             model.put("userPosition",userPosition);
             model.put("userRole",userRole);
-            model.put("departId",departId);
+//            model.put("departId",departId);
             return new ModelAndView(model, "users.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -129,14 +138,14 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String heading=request.queryParams("heading");
             String content = request.queryParams("content");
-            int departId = Integer.parseInt(request.queryParams("departId"));
-            News newNews = new News(heading,content, departId);
+//            int departId = Integer.parseInt(request.queryParams("departId"));
+            News newNews = new News(heading,content);
             newsDao.add(newNews);
             model.put("news", newsDao.getAll());
 
             model.put("heading",heading);
             model.put("content",content);
-            model.put("departId",departId);
+//            model.put("departId",departId);
             return new ModelAndView(model, "news.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -198,7 +207,7 @@ public class App {
             model.put("id", foundUserDetails);
             model.put("user",user);
             model.put("userDetails", foundUserDetails);
-            model.put("userDepartment", usersDao.getAllDepartmentsForUsers(id));
+//            model.put("userDepartment", usersDao.getAllDepartmentsForUsers(id));
             model.put("allDepartments", departmentsDao.getAll());
             return new ModelAndView(model, "user-details.hbs");
         },new HandlebarsTemplateEngine());

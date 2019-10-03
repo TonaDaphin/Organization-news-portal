@@ -1,0 +1,32 @@
+{{#partial "styles"}}
+   <link rel='stylesheet' href='app.css'>
+{{/partial}}
+{{#partial "content"}}
+   <h1>News Form</h1><br><br>
+   <hr>
+   <div class="questionnaire">
+       <div class="form" id="news">
+           <form action="/news" method="POST">
+               <div class="form-group">
+                   <label id="new" for="news">Add news</label>
+                    <label for="departmentId">Department Id</label>
+                     <input class="form-control" type="text" name="departId" placeholder="Department Id" required><br>
+                      <input class="form-control" type="text" name="heading" placeholder="Head title" required><br>
+                   <div id="txt">
+                       <textarea class="form-control" rows="5" type="text" id="text-area" name="content" placeholder="Write News..." required></textarea>
+                   </div>
+                   <br>
+                   <button type="submit" class="btn btn-secondary">Submit</button>
+               </div>
+           </form>
+       </div>
+
+   <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+     <div class="card-header">Department {{ departId}}</div>
+     <div class="card-body">
+       <h4 class="card-title">{{heading}}</h4>
+       <p class="card-text">{{content}}</p>
+     </div>
+   </div>
+{{/partial}}
+{{> layout.hbs}}

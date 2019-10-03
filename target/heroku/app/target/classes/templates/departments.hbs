@@ -1,0 +1,65 @@
+{{#partial "styles"}}
+   <link rel='stylesheet' href='app.css'>
+{{/partial}}
+{{#partial "content"}}
+   <h1>Department Form</h1>
+   <br><br>
+   <hr>
+   <div class="questionnaire">
+       <div class="form" id="department">
+           <form action="/departments" method="POST">
+               <div class="form-group">
+                   <label for="formGroupExampleInput">Department Name</label>
+                   <select name="departName" id="departName" class="form-control form-control-sm" required>
+                                                   <option>Human Resources</option>
+                                                   <option>Marketing</option>
+                                                   <option>Technical Support Team</option>
+                                                   <option>Research and Development </option>
+                                                   <option>Maintenance</option>
+                                                   <option>Logistics</option>
+                                                   <option>Sales</option>
+                                                   <option>Customer Service</option>
+                                                   <option>Accounting Department</option>
+                                                   <option>Dispatch Department</option>
+                                                   <option> Public Relations Department</option>
+                                                   <option>Production Department</option>
+                                                   <option>Information Technology</option>
+                                               </select><br>
+                   <label for="formGroupExampleInput">Department Description</label>
+                   <input class="form-control" type="text" name="departDescription" placeholder="Enter Department Description" required><br>
+                   <label for="formGroupExampleInput">Number of Employees</label>
+                   <input class="form-control" type="number" name="employees" placeholder="Enter total Number of Employees in department"><br><br>
+                   <input class="form-control" type="submit" value="Save">
+               </div>
+           </form>
+       </div>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <div id="viewDep">
+           <table class="table table-dark">
+               <thead class="head-dark">
+               <tr>
+                   <th scope="col">Department Name</th>
+                   <th scope="col">Department Description</th>
+                   <th scope="col">Number of Employees</th>
+               </tr>
+               </thead>
+               <tbody>
+               {{#if departments}}
+                   {{#each departments}}
+                       <tr>
+                           <td>{{departName}}</td>
+                           <td>{{departDescription}}</td>
+                           <td>{{employees}}</td>
+                       </tr>
+                   {{/each}}
+               {{/if}}
+               </tbody>
+           </table>
+       </div>
+{{/partial}}
+{{> layout.hbs}}

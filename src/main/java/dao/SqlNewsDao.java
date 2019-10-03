@@ -12,11 +12,12 @@ public class SqlNewsDao implements NewsDao {
     private final Sql2o sql2o;
     public SqlNewsDao(Sql2o sql2o){
         this.sql2o=sql2o;
+        int id;
     }
 
     @Override
     public void add(News news) {
-        String data="INSERT INTO news(heading,content,departId) VALUES(:heading,:content,:departId)";
+        String data="INSERT INTO news(heading,content) VALUES(:heading,:content)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(data, true)
                     .bind(news)

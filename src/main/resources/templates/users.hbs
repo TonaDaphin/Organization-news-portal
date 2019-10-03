@@ -1,6 +1,6 @@
 
 {{#partial "styles"}}
-   <link rel='stylesheet' href='/css/app.css'>
+   <link rel='stylesheet' href='app.css'>
 {{/partial}}
 {{#partial "content"}}
    <h1>User Form</h1><br><br>
@@ -24,59 +24,22 @@
    </div>
 <br><br>
    <br>
-
-   <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Department {{ departId}}</div>
-        <div class="card-body">
-          <h4 class="card-title">{{userName}}</h4>
-          <p class="card-text">{{userPosition}}</p>
-          <p class="card-text">{{userRole}}</p>
-        </div>
-      </div>
-
-   <br>
-   <div id="viewUser">
-   <table class="table table-dark">
-       <thead class="head-dark">
-       <tr>
-           <th scope="col">Id</th>
-           <th scope="col">Name</th>
-           <th scope="col">Position</th>
-           <th scope="col">Role</th>
-           <th scope="col">Department Id</th>
-       </tr>
-       </thead>
-   <tbody>
-   {{#if users}}
-       {{#each users}}
-           <tr>
-               <td>{{id}}</td>
-               <td>{{userName}}</td>
-               <td>{{userPosition}}</td>
-               <td>{{userRole}}</td>
-               <td>{{departId}}</td>
-           </tr>
-       {{/each}}
-       {{/if}}
-       </tbody>
-       </table>
-   </div>
    <div id="viewDep">
               <table class="table table-dark">
                   <thead class="head-dark">
                   <tr>
-                      <th scope="col">Department Name</th>
-                      <th scope="col">Department Description</th>
-                      <th scope="col">Number of Employees</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Position</th>
+                      <th scope="col">Role</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {{#if departments}}
-                      {{#each departments}}
+                  {{#if users}}
+                      {{#each users}}
                           <tr>
-                              <td>{{departName}}</td>
-                              <td>{{departDescription}}</td>
-                              <td>{{employees}}</td>
+                              <td>{{userName}}</td>
+                              <td>{{userPosition}}</td>
+                              <td>{{userRole}}</td>
                           </tr>
                       {{/each}}
                   {{/if}}
